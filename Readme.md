@@ -10,6 +10,7 @@ Terraform is an open-source infrastructure as code software tool created by Hash
 
 The project is organized into multiple environments and reusable modules. Below is the structure of the project:
 
+```plaintext
 .
 ├── Readme.md
 ├── environment
