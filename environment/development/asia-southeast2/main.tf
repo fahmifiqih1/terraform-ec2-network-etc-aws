@@ -1,3 +1,21 @@
+# Network
+module "network_vpc" {
+  source                = "../../../modules/network_vpc"
+  aws_credentials_local = var.aws_credentials_local
+  aws_profiles_local    = var.aws_profiles_local
+  aws_zone              = var.aws_zone
+  availability_zone_a   = "ap-southeast-1a"
+  availability_zone_b   = "ap-southeast-1b"
+}
+
+module "network_security_group" {
+  source                = "../../../modules/network_security_group"
+  aws_credentials_local = var.aws_credentials_local
+  aws_profiles_local    = var.aws_profiles_local
+  aws_zone              = var.aws_zone
+  aws_vpc_id            = var.aws_vpc_id
+}
+
 # Comput Engine
 module "elastic_compute_engine_jenkins" {
   source                 = "../../../modules/elastic_compute_service"
@@ -19,12 +37,4 @@ module "elastic_compute_engine_nexus" {
   instance_type          = "t3.micro"
   amazon_machine_image   = var.amazon_machine_image
   network_security_group = module.network_security_group.aws_security_group_nexus
-}
-
-module "network_security_group" {
-  source                = "../../../modules/network_security_group"
-  aws_credentials_local = var.aws_credentials_local
-  aws_profiles_local    = var.aws_profiles_local
-  aws_zone              = var.aws_zone
-  aws_vpc_id            = var.aws_vpc_id
 }
